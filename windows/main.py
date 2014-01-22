@@ -271,11 +271,14 @@ class Ui_MainWindow(object):
 	self.progressBar.setGeometry(QtCore.QRect(207, 22, 40, 22))
 	self.progressBar.setObjectName(_fromUtf8("progressBar"))
 	self.progressBar.show()
-	self.progressBar.setVisible(True)
-	self.kpixmapsequencewidget_2 = KPixmapSequenceWidget(self.page_2)
-        self.kpixmapsequencewidget_2.setGeometry(QtCore.QRect(220, 72, 22, 22))
-        self.kpixmapsequencewidget_2.setObjectName(_fromUtf8("kpixmapsequencewidget_2"))
-	self.kpixmapsequencewidget_2.setVisible(True)
+	self.progressBar.setVisible(False)	
+	self.progressBar_2 = QtGui.QProgressBar(self.page_2)
+	self.progressBar_2.setRange(0,1)
+	self.progressBar_2.setGeometry(QtCore.QRect(207, 72, 40, 22))
+	self.progressBar_2.setObjectName(_fromUtf8("progressBar_2"))
+	self.progressBar_2.show()
+	self.progressBar_2.setVisible(False)
+	
         icon7 = QtGui.QIcon()
         icon7.addPixmap(QtGui.QPixmap(_fromUtf8("img/f6618952.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton_7.setIcon(icon7)
@@ -565,7 +568,7 @@ class Ui_MainWindow(object):
         self.label_98.setStyleSheet(_fromUtf8("color:#ffffff;font-size: 13px;"))
         self.label_98.setObjectName(_fromUtf8("label_98"))
         self.label_99 = QtGui.QLabel(self.groupBox_4)
-        self.label_99.setGeometry(QtCore.QRect(140, 2, 59, 17))
+        self.label_99.setGeometry(QtCore.QRect(140, 2, 66, 17))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -592,7 +595,7 @@ class Ui_MainWindow(object):
         self.label_999.setText(_fromUtf8(""))
         self.label_999.setObjectName(_fromUtf8("label_999"))
 	self.label_9888 = QtGui.QLabel(self.groupBox_4)
-        self.label_9888.setGeometry(QtCore.QRect(400, 2, 151, 17))
+        self.label_9888.setGeometry(QtCore.QRect(395, 2, 151, 17))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -601,7 +604,7 @@ class Ui_MainWindow(object):
         self.label_9888.setStyleSheet(_fromUtf8("color:#ffffff;font-size: 13px;"))
         self.label_9888.setObjectName(_fromUtf8("label_9888"))
         self.label_9999 = QtGui.QLabel(self.groupBox_4)
-        self.label_9999.setGeometry(QtCore.QRect(520, 2, 59, 17))
+        self.label_9999.setGeometry(QtCore.QRect(515, 2, 59, 17))
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
@@ -905,9 +908,9 @@ class Ui_MainWindow(object):
         self.pushButton_9.setToolTip(QtGui.QApplication.translate("MainWindow", language[38], None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_18.setToolTip(QtGui.QApplication.translate("MainWindow", language[38], None, QtGui.QApplication.UnicodeUTF8))
 	self.label_98.setText(QtGui.QApplication.translate("MainWindow", language[40], None, QtGui.QApplication.UnicodeUTF8))
-	self.label_988.setText(QtGui.QApplication.translate("MainWindow", "Archivos Revisados:", None, QtGui.QApplication.UnicodeUTF8))
-	self.label_9888.setText(QtGui.QApplication.translate("MainWindow", "Directorios Vacios:", None, QtGui.QApplication.UnicodeUTF8))
-	self.label_98888.setText(QtGui.QApplication.translate("MainWindow", "Temporales:", None, QtGui.QApplication.UnicodeUTF8))
+	self.label_988.setText(QtGui.QApplication.translate("MainWindow", language[43], None, QtGui.QApplication.UnicodeUTF8))
+	self.label_9888.setText(QtGui.QApplication.translate("MainWindow", language[44], None, QtGui.QApplication.UnicodeUTF8))
+	self.label_98888.setText(QtGui.QApplication.translate("MainWindow", language[45], None, QtGui.QApplication.UnicodeUTF8))
 	
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "OnlyOne", None, QtGui.QApplication.UnicodeUTF8))
         self.pushButton_40.setText(QtGui.QApplication.translate("MainWindow", "Español      ", None, QtGui.QApplication.UnicodeUTF8))
@@ -923,4 +926,4 @@ class Ui_MainWindow(object):
 	
 	
 from PyKDE4.kio import KUrlRequester,KFile
-from PyKDE4.kdeui import KPixmapSequenceWidget, KFilterProxySearchLine
+from PyKDE4.kdeui import  KFilterProxySearchLine

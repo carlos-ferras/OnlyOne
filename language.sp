@@ -128,4 +128,37 @@ p42
 sI42
 S'Excluir otro tipo de archivo'
 p43
+sI43
+S'Archivos Revisados:'
+p44
+sI44
+S'Directorios Vacios:'
+p45
+sI45
+S'Temporales:'
+p46
+sI46
+S'Infoprmaci\xc3\xb3n de licencia'
+p47
+sI47
+S'Descripci\xc3\xb3n detallada'
+p48
+sI48
+S'Cont\xc3\xa1cte con los desarolladores'
+p49
+sI49
+S'gana espacio en menos tiempo'
+p50
+sI50
+S'es una herramienta que todos necesitamos, dise\xc3\xb1ada para las manos del usuario m\xc3\xa1s inexperto, encuentre los ficheros repetidos dentro de sus directorios con m\xc3\xa1s informaci\xc3\xb3n, elim\xc3\xadnelos, no son necesarios....solo ocupan nuestro espacio'
+p51
+sI51
+S'Desarrollado por'
+p52
+sI52
+S'Universidad de las Ciencias Inform\xc3\xa1ticas'
+p53
+sI53
+S'Error'
+p54
 s.

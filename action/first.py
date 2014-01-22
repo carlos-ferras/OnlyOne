@@ -14,58 +14,6 @@ class first():
 		self.archivosAbiertos=archivosAbiertos
 		self.dirVacios=dirVacios
 		
-		
-		class MiThread(threading.Thread):
-                        def __init__(self, base):
-                                threading.Thread.__init__(self)
-                                self.base = base
-                                
-                        def run(self):
-                            
-			        hijos=os.listdir(self.base)
-			        for elemento in hijos:
-				        if os.path.isfile(self.base+"/"+elemento):
-					        meta=os.stat(self.base+"/"+elemento)
-					        tipo=metaData.extencion(self.base+"/"+elemento)
-                                                if(elemento[len(elemento)-1]=="~"):
-						        archivosAbiertos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-                                                        continue	
-					        if(conExten!=[]):
-                                                        for ext in conExten:
-                                                                if(str(tipo)==ext):
-                                                                        for ext in sinExten:
-                                                                                if(str(tipo)!=ext):
-											totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-					        elif(menork!=0L):
-                                                        if((meta.st_size>mayork)and(meta.st_size<menork)):
-                                                                for ext in sinExten:
-                                                                        if(str(tipo)!=ext):
-										totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-					        elif(menork==0L):
-                                                        if(meta.st_size>mayork):
-                                                                for ext in sinExten:
-                                                                        if(str(tipo)!=ext):
-										totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-					        elif((conExten!=[])and(menork!=0L)):
-                                                        if((meta.st_size>mayork)and(meta.st_size<menork)):
-                                                                for ext in conExten:
-                                                                        if(str(tipo)==ext):
-									        for ext in sinExten:
-                                                                                        if(str(tipo)!=ext):
-												totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-					        elif((conExten!=[])and(menork==0L)):
-                                                        if(meta.st_size>mayork):
-                                                                for ext in conExten:
-                                                                        if(str(tipo)==ext):
-                                                                                for ext in sinExten:
-                                                                                        if(str(tipo)!=ext):
-												totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-					        else:
-                                                        for ext in sinExten:
-                                                                if(str(tipo)!=ext):
-									totalArchivos.append([self.base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
-
-		
 		class MiThread2(threading.Thread):
                         def __init__(self, grupo,tupla):
                                 threading.Thread.__init__(self)
@@ -91,38 +39,116 @@ class first():
 				dirVacios.append(base)
 				continue
 				
-			t = MiThread(base)
-                        t.start()
-                        t.join()
+			hijos=os.listdir(base)
+			for elemento in hijos:
+				        if os.path.isfile(base+"/"+elemento):
+					        meta=os.stat(base+"/"+elemento)
+					        tipo=metaData.extencion(base+"/"+elemento)
+                                                if(elemento[len(elemento)-1]=="~"):
+						        archivosAbiertos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+                                                        continue	
+					        if(conExten!=[]):
+                                                        for ext in conExten:
+                                                                if(str(tipo)==ext):
+                                                                        for ext in sinExten:
+                                                                                if(str(tipo)!=ext):
+											totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+					        elif(menork!=0L):
+                                                        if((meta.st_size>mayork)and(meta.st_size<menork)):
+                                                                for ext in sinExten:
+                                                                        if(str(tipo)!=ext):
+										totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+					        elif(menork==0L):
+                                                        if(meta.st_size>mayork):
+                                                                for ext in sinExten:
+                                                                        if(str(tipo)!=ext):
+										totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+					        elif((conExten!=[])and(menork!=0L)):
+                                                        if((meta.st_size>mayork)and(meta.st_size<menork)):
+                                                                for ext in conExten:
+                                                                        if(str(tipo)==ext):
+									        for ext in sinExten:
+                                                                                        if(str(tipo)!=ext):
+												totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+					        elif((conExten!=[])and(menork==0L)):
+                                                        if(meta.st_size>mayork):
+                                                                for ext in conExten:
+                                                                        if(str(tipo)==ext):
+                                                                                for ext in sinExten:
+                                                                                        if(str(tipo)!=ext):
+												totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+					        else:
+                                                        for ext in sinExten:
+                                                                if(str(tipo)!=ext):
+									totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
+
 			
-		self.rep=rep
-			
-		def existe(self,tupla):
-			"""Busca si ya el fichero se agrego a la lista de archivos revisados"""
-			for grupo in rep:
-				t2=MiThread2(grupo,tupla)
-				t2.start()
-				t2.join()
-                                return t2.estado	 
-		 
-		def concuerda(self,tupla):
-			"""Busca si el archivo en cuestion es igual a alguno de los ya revisados"""
-			pos=0
-			for grupo in self.rep:
-				if((grupo[0][1]==tupla[1]) and (grupo[0][2]==tupla[2]) and (grupo[0][3]==tupla[3])):
-					self.rep[pos].append(tupla)
-					return "true"
-				pos=pos+1
-			return "false"
-	
-	
-		"""Ejecuta las funciones anteriores para definir los archivos k se repiten y los k no"""
-		for tupla in self.totalArchivos:
-			existencia=existe(self,tupla)
-			if(existencia=="false"):
-				tieneHermano=concuerda(self,tupla)
-				if(tieneHermano=="false"):
-					self.rep.append([tupla])
+		self.rep=[]
+		self.grupo=[[["","","",""]]]
+		self.tamGrupo=2
+		for i in range(len(totalArchivos)):
+			accion=True
+			for j in range(len(self.grupo)):
+				if((totalArchivos[i][1]==self.grupo[j][0][1]) and (totalArchivos[i][2]==self.grupo[j][0][2]) and (totalArchivos[i][3]==self.grupo[j][0][3])):
+					self.grupo[j].append(totalArchivos[i])
+					accion=False
+					break
+			if accion==True:
+				self.grupo.append([totalArchivos[i]])
+			if len(self.grupo)==self.tamGrupo:
+				self.rep.append(self.grupo)
+				self.grupo=[[["","","",""]]]
+				
+		self.rep.append(self.grupo)
+		
+		def unir(self,grupoDeGrupos1,grupoDeGrupos2):
+
+			grupoDeGrupos=grupoDeGrupos1
+			tope=len(grupoDeGrupos)
+			for i in range(len(grupoDeGrupos2)):
+				accion=True
+				for j in range(tope):
+					if( (grupoDeGrupos2[i][0][1]==grupoDeGrupos[j][0][1]) and (grupoDeGrupos2[i][0][2]==grupoDeGrupos[j][0][2]) and (grupoDeGrupos2[i][0][3]==grupoDeGrupos[j][0][3])):
+						grupoDeGrupos[j]=grupoDeGrupos[j]+grupoDeGrupos2[i]
+						accion=False
+						break
+				if accion==True:
+					grupoDeGrupos.append(grupoDeGrupos2[i])
+			return grupoDeGrupos
+		
+		"""
+		cont=0
+		while len(self.rep)>=cont+2:
+			self.rep[cont:cont+1]=self.unir(self.rep[cont],self.rep[cont+1])
+			cont=cont+1
+			if (len(self.rep)==cont) or (len(self.rep)==cont+1):
+				cont=0
+				
+		"""
+		
+		
+		def reducir(self,x):
+			aux=0
+			repe=[]
+			while aux+1<len(x):
+				"""
+				print x[aux]
+				print x[aux+1]
+				print "********************************"
+				"""
+				repe.append(unir(self,x[aux],x[aux+1]))
+				aux=aux+2
+			if aux==len(x)-1:
+				repe.append(x[aux])
+			if len(repe)==1:
+				return repe[0]
+			else:
+				return reducir(self,repe)
+					
+		self.rep=reducir(self,self.rep)
+		del self.rep[0]
+
+
 	
 		self.noMarcados=noMarcados
 		self.repetidos=repetidos		

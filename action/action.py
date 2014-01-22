@@ -15,6 +15,7 @@ class action():
 		self.mayork=0L
 		self.menork=0L
 		self.excDir=''
+		self.direccion=""
 		
 		self.totalArchivos=[]
 		self.archivosAbiertos=[]
@@ -58,11 +59,13 @@ class action():
 		self.mayork=0L
 		self.menork=0L
 		self.excDir=''
-
+		
+	def AnadirDir(self,direccion):
+		self.direccion=direccion
 
 
 	#OPCIONES-1
-	def RealizarBusqueda(self,direccion):
+	def RealizarBusqueda(self):
 		self.totalArchivos=[]
 		self.archivosAbiertos=[]
 		self.rep=[[['','','','']]]
@@ -72,7 +75,7 @@ class action():
 		self.encontrado=[]
 		self.dirVacios=[]
 
-                self.first= first.first(direccion,self.conExten,self.sinExten,self.mayork,self.menork,self.excDir,self.metaData,self.totalArchivos,self.rep,self.noMarcados,self.repetidos,self.encontrado,self.archivosAbiertos,self.dirVacios)
+                self.first= first.first(self.direccion,self.conExten,self.sinExten,self.mayork,self.menork,self.excDir,self.metaData,self.totalArchivos,self.rep,self.noMarcados,self.repetidos,self.encontrado,self.archivosAbiertos,self.dirVacios)
 		
 		self.totalArchivos=self.first.getTotalArchivos()
 		self.archivosAbiertos=self.first.getArchivosAbiertos()
@@ -87,7 +90,7 @@ class action():
 		import pickle
 
 		traductor={}
-		spanish=["Filtros","Por Carpeta..","Por Tipo..","Por Peso..","Realizar búsqueda en el directorio:","No incluir el directorio:","Solo buscar:","No incluir:","Solo incluir archivos con peso:","Mayor que:","Menor que:","Búsqueda","Realizar búsqueda              ","Adicionar tipos de archivos","Herramientas","Borrar Archivos Marcados      ","Borrar Archivos No Marcados ","Borrar Archivos Temporales    ","Borrar Directorios Vacíos         ","Cantidad de Grupos:","Cantidad Total:","Cantidad de Marcados:","Peso de los no Marcados:","Peso de los Marcados:","Peso Total:","Idioma","Tipografía","Ayuda","Contáctenos en Facebook","Acerca de...","Marcar todos","Marcar todos menos uno de cada grupo","Desmarcar todos","Marcar encontrados","DIRECTORIO","PESO","TIPO","MODIFICADO","Ordenar","Buscar","Tiempo de Búsqueda:","Añadir otro tipo de archivo","Excluir otro tipo de archivo"]
+		spanish=["Filtros","Por Carpeta..","Por Tipo..","Por Peso..","Realizar búsqueda en el directorio:","No incluir el directorio:","Solo buscar:","No incluir:","Solo incluir archivos con peso:","Mayor que:","Menor que:","Búsqueda","Realizar búsqueda              ","Adicionar tipos de archivos","Herramientas","Borrar Archivos Marcados      ","Borrar Archivos No Marcados ","Borrar Archivos Temporales    ","Borrar Directorios Vacíos         ","Cantidad de Grupos:","Cantidad Total:","Cantidad de Marcados:","Peso de los no Marcados:","Peso de los Marcados:","Peso Total:","Idioma","Tipografía","Ayuda","Contáctenos en Facebook","Acerca de...","Marcar todos","Marcar todos menos uno de cada grupo","Desmarcar todos","Marcar encontrados","DIRECTORIO","PESO","TIPO","MODIFICADO","Ordenar","Buscar","Tiempo de Búsqueda:","Añadir otro tipo de archivo","Excluir otro tipo de archivo","Archivos Revisados:","Directorios Vacios:","Temporales:","Infoprmación de licencia","Descripción detallada","Contácte con los desarolladores","gana espacio en menos tiempo","es una herramienta que todos necesitamos, diseñada para las manos del usuario más inexperto, encuentre los ficheros repetidos dentro de sus directorios con más información, elimínelos, no son necesarios....solo ocupan nuestro espacio","Desarrollado por","Universidad de las Ciencias Informáticas","Error"]
 		english=["Filters","By Folder","By Type..","By Size..","Start search in directory:","Exclude the directory:","Search only:","Exclude:","Only include files with size:","Greater than:","Lesser than:","Search","Start search","Add file types","Tools"," Delete Marked Files        "," Delete Unmarked Files    ","Delete Temporary Files   ","Delete Empty Directories","Number of Groups:","Total Amount:","Number of Marked:","Unmarked size:","Marked size:","Total size:","Language","Typography","Help","Contact us on Facebook","About ...","Mark all","Mark all but one in each group","Unmark all","Mark found","DIRECTORY","SIZE","FILE TYPE","MODIFIED","Order","Search","Search Time","Add another file type","Exclude another file type"]		
 		french=["Filtres","Par Dossier..","Par Type..","Par poids..","Effectuez une recherche de répertoire:","Exclure le répertoire:","Rechercher uniquement:","Exclure:","Inclure uniquement les fichiers dont le poids:","supérieur à:","Inférieur à:","Recherche","Sommaire Recherche           ","Ajouter des types de fichiers","Outils","Marqué Supprimer les fichiers","Supprimer les fichiers pas marqué","Supprimer les fichiers temporaires","supprimer les répertoires vides","Numéro du groupe:","Montant Total:","Quantité de étiquetée:","Poids non marqué:","Poids des Noté:","Poids total:","Langue","typographie","Aider","Contact sur Facebook","Sur...","Marquer tous les","Marquer tous sauf un dans chaque groupe","Décochez tous","Marquer trouvé","ANNUAIRE","POIDS","TYPE DE FICHIER","MODIFIÉ","Ordre","Recherche","Temps de recherche","Ajouter un autre type de fichier","Exclure autre type de fichier"]
 		portuguese=["Filtros","Por Pasta..","Por Tipo..","Por Peso..","Realizar pesquisa de diretório:","Excluir o diretório:","Apenas busca:","Excluir:","Só incluir arquivos com peso:","Maior do que:","Menor que:","Pesquisa","Realizar pesquisa              ","Adicionar tipos de arquivo","Ferramentas","Apagar Arquivos Marcados       ","Apagar Arquivos Não Marcados","Excluir arquivos temporários   ","Remover diretórios vazios         ","Número do grupo:","Montante Total:","Quantidade de rotulados:","Peso sem rótulo:","Peso da rotulados:","Peso Total:","Língua","Tipografia","Ajudar","Contate-nos no Facebook","Sobre...","Marcar tudo","Marcar todos, mas um em cada grupo","Desmarque tudo","Marcar encontrado","DIRETÓRIO","PESO","TIPO DE ARQUIVO","MODIFICADO","Ordem","Pesquisa","Tempo de Pesquisa","Adicionar outro tipo de arquivo","Excluir outro tipo de arquivo"]
@@ -162,7 +165,9 @@ class action():
 
 		for direccion in direcciones:    
 			if os.path.isfile(direccion[0]):
-				os.remove(direccion[0])
+				try:
+					os.remove(direccion[0])
+				except:errores=errores+str(direccion[0])+"***"
 			else:
 				errores=errores+direccion+"***"
 		return errores
@@ -184,7 +189,7 @@ class action():
 				errores=errores+dir+"***"
 		self.dirVacios=[]
 		if errores != '' :
-			return 'ErrorArchivosNoBorrados: No se pudo borrar los siguientes archivos: '+errores
+			return 'ErrorDirectoriosNoBorrados: No se pudo borrar los siguientes directorios: '+errores
 		return errores
 		
 	def BorrarMarcados(self):

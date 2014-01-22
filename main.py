@@ -9,7 +9,9 @@ import action.action
 import windows.main as win
 import windows.about.main as win2
 
-
+import pickle
+fichero=open("language.sp","r")
+language=pickle.load(fichero)
 
 function=action.action.action()
 
@@ -18,6 +20,23 @@ class TestItem():
         self.checked = checked
         self.name = tupla
 	self.grupo=grupo
+	
+class TaskThread(QThread):
+                taskFinished = pyqtSignal()
+                def run(self):
+			function.RealizarBusqueda()
+			self.taskFinished.emit() 
+			
+class TaskThread2(QThread):
+                taskFinished = pyqtSignal()
+                def run(self):
+			self.taskFinished.emit() 
+			
+class TaskThread3(QThread):
+                taskFinished = pyqtSignal()
+                def run(self):
+			function.AdicionarTipos()
+			self.taskFinished.emit() 
 
 class StbTreeView(QAbstractListModel):
 	
@@ -35,7 +54,7 @@ class StbTreeView(QAbstractListModel):
 			self.args.append(TestItem(tupla,pos, False))
 			self.noMarc.append(self.indice)
 			self.indice=self.indice+1
-		self.args.append(TestItem([win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'),"","",""],pos, False))
+		self.args.append(TestItem([win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'),"","",""],pos, False))
 		pos=pos+1
 	del self.args[len(self.args)-1]
 
@@ -48,12 +67,12 @@ class StbTreeView(QAbstractListModel):
     def data(self, index, role=Qt.DisplayRole):
         if role == Qt.DisplayRole:
             row = index.row()
-            return  self.args[row].name[0]+win._fromUtf8("▆▆▆")+self.args[row].name[2]+win._fromUtf8("▆▆▆")+self.args[row].name[3]+win._fromUtf8("▆▆▆")+self.args[row].name[1]
+            return  self.args[row].name[0]+win._fromUtf8("◀▶")+self.args[row].name[2]+win._fromUtf8("◀▶")+self.args[row].name[3]+win._fromUtf8("◀▶")+self.args[row].name[1]
 
         if role == Qt.CheckStateRole:
             row = index.row()
             if self.args[row].checked == False:
-		if self.args[row].name[0]!=win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		if self.args[row].name[0]!=win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			function.Desmarcar(self.args[row].name)
 			esta=False
 			for k in self.noMarc:
@@ -66,10 +85,9 @@ class StbTreeView(QAbstractListModel):
 					del self.marc[k]
 					break
 			return QVariant(Qt.Unchecked)
-		else:
-			return -1
+		
             else:
-		if self.args[row].name[0]!=win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		if self.args[row].name[0]!=win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			function.Marcar(self.args[row].name)
 			esta=False
 			for k in self.marc:
@@ -82,8 +100,7 @@ class StbTreeView(QAbstractListModel):
 					del self.noMarc[k]
 					break
 			return QVariant(Qt.Checked)
-		else:
-			return -1
+		
 
     def setData(self, index, value, role):
         if role == Qt.CheckStateRole:
@@ -135,12 +152,12 @@ class StbTreeView(QAbstractListModel):
 	    except:
 		    return -1
 	    for i in range(len(self.args)):
-		    if self.args[i].name[0]==win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		    if self.args[i].name[0]==win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			    continue
 		    if actual==self.args[i].grupo:
 			    new.append(self.args[i])
 		    else:
-			     new.append(TestItem([win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'),"","",""],actual, False))
+			     new.append(TestItem([win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'),"","",""],actual, False))
 			     actual=self.args[i].grupo
 			     new.append(self.args[i])
 	    self.args=new
@@ -149,7 +166,7 @@ class StbTreeView(QAbstractListModel):
     def marcar(self):
 	    self.marc=[]
 	    for i in range(len(self.args)):
-		    if self.args[i].name[0]==win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		    if self.args[i].name[0]==win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			    continue
 		    self.args[i].checked=True
 		    self.marc.append(i)
@@ -159,7 +176,7 @@ class StbTreeView(QAbstractListModel):
     def desmarcar(self):
 	    self.noMarc=[]
 	    for i in range(len(self.args)):
-		    if self.args[i].name[0]==win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		    if self.args[i].name[0]==win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			    continue
 		    self.args[i].checked=False
 		    self.noMarc.append(i)
@@ -178,7 +195,7 @@ class StbTreeView(QAbstractListModel):
 	    self.noMarc.append(0)
 	    for i in range(1,len(self.args)):
 		    if pos==self.args[i].grupo:
-			    if self.args[i].name[0]==win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+			    if self.args[i].name[0]==win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 				    continue
 			    self.args[i].checked=True
 			    self.marc.append(i)
@@ -189,7 +206,7 @@ class StbTreeView(QAbstractListModel):
 			    
     def marcarEncontrados(self,encontrados):
 	    for i in range(len(self.args)):
-		    if self.args[i].name[0]==win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'):
+		    if self.args[i].name[0]==win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'):
 			    continue
 		    for j in range(len(encontrados)):
 			    if self.args[i].name[0]==encontrados[j][0]:
@@ -234,7 +251,7 @@ class StbTreeView(QAbstractListModel):
 			self.args.append(TestItem(tupla,pos, False))
 			self.noMarc.append(self.indice)
 			self.indice=self.indice+1
-		self.args.append(TestItem([win._fromUtf8('▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆'),"","",""],pos, False))
+		self.args.append(TestItem([win._fromUtf8('════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════'),"","",""],pos, False))
 		pos=pos+1
 	del self.args[len(self.args)-1]
 
@@ -271,8 +288,16 @@ class cMainWindow(win.Ui_MainWindow):
 		self.setupUi(self.form1)
 		self.form1.show()	
 		self.form1.setStyleSheet("font-size: 13px;")
-		self.pushButton_6.clicked.connect(self.RealizarBusqueda)
-		self.pushButton_7.clicked.connect(self.AdicionarTipos)
+		
+		#self.pushButton_6.clicked.connect(self.RealizarBusqueda)
+		self.pushButton_6.clicked.connect(self.onStart)
+		self.myLongTask = TaskThread()
+		self.myLongTask.taskFinished.connect(self.onFinished)
+		
+		self.pushButton_7.clicked.connect(self.onStart3)
+		self.myLongTask3 = TaskThread3()
+		self.myLongTask3.taskFinished.connect(self.onFinished3)
+		
 		self.toolButton.clicked.connect(self.fuenteMas)
 		self.toolButton_2.clicked.connect(self.fuenteMenos)
 		self.pushButton_5.clicked.connect(self.language)
@@ -332,8 +357,84 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_2.clicked.connect(self.help)
 		self.pushButton_3.clicked.connect(self.face)
 		
-		self.treeView.clicked.connect(self.data)
+		self.treeView.clicked.connect(self.onStart2)
+		self.myLongTask2 = TaskThread2()
+		self.myLongTask2.taskFinished.connect(self.onFinished2)
+		
+		
+	def onStart2(self):
+		self.myLongTask2.start()
+		
+	def onFinished2(self):
+		self.data()
+		
+	def onStart3(self): 
+		self.progressBar_2.setVisible(True)
+                self.progressBar_2.setRange(0,0)
+                self.myLongTask3.start()
+
+        def onFinished3(self):
+                self.progressBar_2.setRange(0,1)
+                self.progressBar_2.setValue(1)
+
+		
+	def onStart(self): 
+		if str(self.kurlrequester.text())!='':
+			
+			self.pushButton_10.setEnabled(False)
+			self.pushButton_11.setEnabled(False)
+			self.pushButton_12.setEnabled(False)
+			self.pushButton_66.setEnabled(False)
+			self.pushButton_13.setEnabled(False)
+			self.pushButton_14.setEnabled(False)
+			self.pushButton_15.setEnabled(False)
+			self.pushButton_16.setEnabled(False)
+			self.pushButton_17.setEnabled(False)
+			self.pushButton_9.setEnabled(False)
+			self.pushButton_8.setEnabled(False)
+			self.pushButton_18.setEnabled(False)
+			
+			if self.doubleSpinBox.value()>0:
+				function.AnadirMayork(self.doubleSpinBox.value())
+			if self.doubleSpinBox_2.value()>0:
+				function.AnadirMenork(self.doubleSpinBox_2.value())
+			if len(str(self.kurlrequester_2.text()))!=0:
+				function.AnadirExcDir(str(self.kurlrequester_2.text()))
+			
+			function.AnadirDir(str(self.kurlrequester.text()))
+		
+			self.progressBar.setVisible(True)
+			self.progressBar.setRange(0,0)
+			self.myLongTask.start()
 	
+
+	def onFinished(self):
+		# Stop the pulsation
+		self.progressBar.setRange(0,1)
+		self.progressBar.setValue(1)
+		
+		self.model = StbTreeView(function.getRepetidos(),self.centralwidget)
+		self.treeView.show()
+		self.treeView.header().hide() 
+		self.treeView.setModel(self.model)
+		self.treeView.setAlternatingRowColors(True)
+
+		self.label_8.setText(win._fromUtf8(str(function.CantidadGrupos_Archivos()[0])))
+		self.label_9.setText(win._fromUtf8(str(function.CantidadGrupos_Archivos()[1])))
+		self.data()
+		function.reiniciarFiltros()
+		
+		self.pushButton_10.setEnabled(True)
+		self.pushButton_11.setEnabled(True)
+		self.pushButton_12.setEnabled(True)
+		self.pushButton_66.setEnabled(True)
+		self.pushButton_14.setEnabled(True)
+		self.pushButton_15.setEnabled(True)
+		self.pushButton_16.setEnabled(True)
+		self.pushButton_17.setEnabled(True)
+		self.pushButton_9.setEnabled(True)
+		self.pushButton_8.setEnabled(True)
+		self.pushButton_18.setEnabled(True)
 	def help(self):
 		pass
 	
@@ -445,15 +546,15 @@ class cMainWindow(win.Ui_MainWindow):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'FreeSerif\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:12pt; font-weight:600;\">OnlyOne, gana espacio en menos tiempo.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:12pt; font-weight:600;\">OnlyOne,"+language[49]+".</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:12pt; font-weight:600;\">1.0</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\';\">OnlyOne es una herramienta que todos necesitamos, diseñada para las manos del usuario más inexperto, encuentre los ficheros repetidos dentro de sus directorios con más información, elimínelos, no son necesarios....solo ocupan nuestro espacio.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\';\">OnlyOne "+language[50]+".</span></p>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Novason\';\"><br /></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:8pt; font-weight:600;\">Desarrollado por Carlos Manuel Ferrás, Pavel Rolando Rondón, Alfredo Ríos Fuentes</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:8pt; font-weight:600;\">Universidad de las Ciencias Informáticas</span></p></body></html>", None, QApplication.UnicodeUTF8))
-		self.pushButton_348.setText(QApplication.translate("Dialog", "Infoprmación de licencia", None, QApplication.UnicodeUTF8))
-		self.pushButton_349.setText(QApplication.translate("Dialog", "Descripción detallada", None, QApplication.UnicodeUTF8))
-		self.pushButton_350.setText(QApplication.translate("Dialog", "Contácte con los desarolladores", None, QApplication.UnicodeUTF8))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:8pt; font-weight:600;\">"+language[51]+" Carlos Manuel Ferrás, Pavel Rolando Rondón, Alfredo Ríos Fuentes</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Novason\'; font-size:8pt; font-weight:600;\">"+language[52]+"</span></p></body></html>", None, QApplication.UnicodeUTF8))
+		self.pushButton_348.setText(QApplication.translate("Dialog", language[46], None, QApplication.UnicodeUTF8))
+		self.pushButton_349.setText(QApplication.translate("Dialog", language[47], None, QApplication.UnicodeUTF8))
+		self.pushButton_350.setText(QApplication.translate("Dialog", language[48], None, QApplication.UnicodeUTF8))
 		
 		self.groupBox_343.setWindowTitle(QApplication.translate("", "OnlyOne", None, QApplication.UnicodeUTF8))
 		self.groupBox_343.show()
@@ -468,7 +569,8 @@ class cMainWindow(win.Ui_MainWindow):
 		pass
 		
 	def contacto(self):
-		pass
+		import webbrowser
+		webbrowser.open('mailto:cmferras@estudiantes.uci.cu')
 	
 	def oTipo(self):
 		function.OrganizarTipo()
@@ -542,13 +644,13 @@ class cMainWindow(win.Ui_MainWindow):
 		self.plainTextEdit_777.setObjectName(_fromUtf8("plainTextEdit_777"))
 		
 		lista=s.split(error,":")
-		self.label_777.setText(win._fromUtf8("ErrorArchivosNoBorrados:"))
-		self.plainTextEdit_777.appendPlainText("No se pudo borrar los siguientes archivos:\n")
+		self.label_777.setText(win._fromUtf8(lista[0]))
+		self.plainTextEdit_777.appendPlainText(lista[1]+"\n")
 		errores=s.split(lista[2],"***")
 		for e in errores:
 			self.plainTextEdit_777.appendPlainText(win._fromUtf8(e+"\n"))
 			
-		self.groupBox_777.setWindowTitle(QApplication.translate("", "Error", None, QApplication.UnicodeUTF8))
+		self.groupBox_777.setWindowTitle(QApplication.translate("", language[53], None, QApplication.UnicodeUTF8))
 		self.groupBox_777.show()
 		
 	
@@ -739,7 +841,7 @@ class cMainWindow(win.Ui_MainWindow):
 		self.label_9999.setText(win._fromUtf8(str(len(function.getDirVacios()))))
 		self.label_98888.setVisible(True)
 		self.label_99999.setText(win._fromUtf8(str(len(function.getArchivosAbiertos()))))
-
+	"""
 	def RealizarBusqueda(self):
 		if self.doubleSpinBox.value()>0:
 			function.AnadirMayork(self.doubleSpinBox.value())
@@ -747,7 +849,6 @@ class cMainWindow(win.Ui_MainWindow):
 			function.AnadirMenork(self.doubleSpinBox_2.value())
 		if len(str(self.kurlrequester_2.text()))!=0:
 			function.AnadirExcDir(str(self.kurlrequester_2.text()))
-		#self.kpixmapsequencewidget.setVisible(True)
 		function.RealizarBusqueda(str(self.kurlrequester.text()))
 		
 		self.model = StbTreeView(function.getRepetidos(),self.centralwidget)
@@ -776,8 +877,7 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_8.setEnabled(False)
 		self.pushButton_18.clicked.connect(self.oModif)
 		self.pushButton_18.setEnabled(False)
-                #self.kpixmapsequencewidget.setVisible(False)		
-		
+	"""	
 		
 	def AdicionarTipos(self):
 		function.AdicionarTipos()
