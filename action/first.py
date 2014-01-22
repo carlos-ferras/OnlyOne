@@ -6,6 +6,7 @@ import time
 from dateutil import parser
 import datetime
 import threading
+import string as s
 
 class first():
 	def __init__(self,direccion,conExten,sinExten,mayork,menork,excDir,metaData,totalArchivos,rep,noMarcados,repetidos,encontrado,archivosAbiertos,dirVacios):
@@ -13,27 +14,25 @@ class first():
 		self.totalArchivos=totalArchivos
 		self.archivosAbiertos=archivosAbiertos
 		self.dirVacios=dirVacios
-		
-		class MiThread2(threading.Thread):
-                        def __init__(self, grupo,tupla):
-                                threading.Thread.__init__(self)
-                                self.grupo = grupo
-				self.tupla=tupla
-                                self.estado="false"
-                                
-                        def run(self):
-				for dir in self.grupo:
-					if (dir[0]==self.tupla[0]):
-						self.estado="true"
-		
-		
 	
 		"""Aqui se rellena un arreglo "totalArchivos[]" con todos los archivos anidados dentro del directorio entrado por el usuario"""
 		#hora de inicio
 		self.horaInicio=datetime.datetime.fromtimestamp(time.time())
-		for base, dirs, files in os.walk(direccion):
-			if base==excDir:
-				continue
+		carpetas=s.split(excDir,"/")
+		del carpetas[0]
+		for base, dirs, files in os.walk(direccion):			
+			if len(carpetas)>1:
+				carpetasBase=s.split(base,"/")
+				del carpetasBase[0]
+				if len(carpetasBase)>=len(carpetas):					
+					coincide=True
+					for i in range(len(carpetas)):
+						if carpetasBase[i]!=carpetas[i]:
+							coincide=False
+							break
+					if coincide==True:
+						continue
+				
 			hijos=os.listdir(base)
 			if len(hijos)==0:
 				dirVacios.append(base)
@@ -82,10 +81,10 @@ class first():
                                                                 if(str(tipo)!=ext):
 									totalArchivos.append([base+"/"+elemento,time.ctime(meta.st_mtime),metaData.peso(meta.st_size),str(tipo)])
 
-			
+		"""Aqui se crean las listas de ficheros repetidos"""	
 		self.rep=[]
 		self.grupo=[[["","","",""]]]
-		self.tamGrupo=2
+		self.tamGrupo=1
 		for i in range(len(totalArchivos)):
 			accion=True
 			for j in range(len(self.grupo)):
@@ -102,7 +101,7 @@ class first():
 		self.rep.append(self.grupo)
 		
 		def unir(self,grupoDeGrupos1,grupoDeGrupos2):
-
+			"""Para unir 2 listas en una"""
 			grupoDeGrupos=grupoDeGrupos1
 			tope=len(grupoDeGrupos)
 			for i in range(len(grupoDeGrupos2)):
@@ -116,26 +115,13 @@ class first():
 					grupoDeGrupos.append(grupoDeGrupos2[i])
 			return grupoDeGrupos
 		
-		"""
-		cont=0
-		while len(self.rep)>=cont+2:
-			self.rep[cont:cont+1]=self.unir(self.rep[cont],self.rep[cont+1])
-			cont=cont+1
-			if (len(self.rep)==cont) or (len(self.rep)==cont+1):
-				cont=0
-				
-		"""
 		
 		
 		def reducir(self,x):
+			"""Es quien se encarga de comvertir todas las listas en una sola"""
 			aux=0
 			repe=[]
 			while aux+1<len(x):
-				"""
-				print x[aux]
-				print x[aux+1]
-				print "********************************"
-				"""
 				repe.append(unir(self,x[aux],x[aux+1]))
 				aux=aux+2
 			if aux==len(x)-1:

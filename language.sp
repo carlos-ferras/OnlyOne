@@ -132,19 +132,19 @@ sI43
 S'Archivos Revisados:'
 p44
 sI44
-S'Directorios Vacios:'
+S'Directorios Vac\xc3\xados:'
 p45
 sI45
 S'Temporales:'
 p46
 sI46
-S'Infoprmaci\xc3\xb3n de licencia'
+S'Informaci\xc3\xb3n de licencia'
 p47
 sI47
 S'Descripci\xc3\xb3n detallada'
 p48
 sI48
-S'Cont\xc3\xa1cte con los desarolladores'
+S'Cont\xc3\xa1cte con los desarrolladores'
 p49
 sI49
 S'gana espacio en menos tiempo'
@@ -161,4 +161,16 @@ p53
 sI53
 S'Error'
 p54
+sI54
+S'Limpiar Selecci\xc3\xb3n'
+p55
+sI55
+S'Se han encontrado %s coincidencias'
+p56
+sI56
+S'Operaci\xc3\xb3n terminada'
+p57
+sI57
+S'No debe haber tildes en la direcci\xc3\xb3n'
+p58
 s.

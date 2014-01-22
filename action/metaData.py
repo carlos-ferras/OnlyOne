@@ -28,6 +28,7 @@ class metaData():
 				return "{0:.5f} {1}".format(tamano, sufijo)
 				
 	def guardar(self,tipos):
+		"""Guarda los mimetypes encontrados en el fichero:ficheros"""
 		dirFichero='action/ficheros'
 		fichero=open(dirFichero,'r+')
 		tengo=fichero.readlines()
