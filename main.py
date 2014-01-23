@@ -1,5 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+#OnlyOne is an application to remove duplicated files within a specified directory
+#Copyright (C) 2014 Carlos Manuel Ferrás Hernández
+#
+#This file is part of OnlyOne.
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of  MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program.  If not, see <http://www.gnu.org/licenses/>.
+
 import sys
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -74,13 +92,6 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_17.clicked.connect(self.BorrarDirectoriosVacios)
 		self.pushButton_17.setEnabled(False)
 		
-		self.pushButton_9.clicked.connect(self.oPeso)
-		self.pushButton_9.setEnabled(False)
-		self.pushButton_8.clicked.connect(self.oTipo)
-		self.pushButton_8.setEnabled(False)
-		self.pushButton_18.clicked.connect(self.oModif)
-		self.pushButton_18.setEnabled(False)
-		
 		self.porPeso="mayor"
 		self.porFecha="mayor"
 		
@@ -96,7 +107,28 @@ class cMainWindow(win.Ui_MainWindow):
 		self.myLongTask2 = TaskThread2()
 		self.myLongTask2.taskFinished.connect(self.onFinished2)
 		
+		self.header=self.treeView.header()
+		self.header.setClickable(True)
+		self.header.setMovable(False)
+		self.header.sectionClicked.connect(self.organizar)
 		self.bor=""
+       
+		
+	def organizar(self, logicalIndex):
+		if logicalIndex==1:
+			self.oPeso()
+		elif logicalIndex==2:
+			self.oTipo()
+		elif logicalIndex==3:
+			self.oModif()
+	
+	def cancelar(self):
+		if self.myLongTask.isRunning ():
+			self.myLongTask.terminate()
+			self.progressBar.setRange(0,1)
+			self.progressBar.setValue(1)
+			self.pushButton_6.clicked.connect(self.onStart)
+			self.pushButton_6.setText(QApplication.translate("MainWindow", language[12], None, QApplication.UnicodeUTF8))
 	
 	def twitter(self):
 		import webbrowser
@@ -124,7 +156,6 @@ class cMainWindow(win.Ui_MainWindow):
 		try:
 			if str(self.kurlrequester.text())!='':
 			
-				self.pushButton_6.setEnabled(False)
 				self.pushButton_10.setEnabled(False)
 				self.pushButton_11.setEnabled(False)
 				self.pushButton_12.setEnabled(False)
@@ -134,9 +165,7 @@ class cMainWindow(win.Ui_MainWindow):
 				self.pushButton_15.setEnabled(False)
 				self.pushButton_16.setEnabled(False)
 				self.pushButton_17.setEnabled(False)
-				self.pushButton_9.setEnabled(False)
-				self.pushButton_8.setEnabled(False)
-				self.pushButton_18.setEnabled(False)
+
 				
 				if self.doubleSpinBox.value()>0:
 					function.AnadirMayork(self.doubleSpinBox.value())
@@ -149,12 +178,16 @@ class cMainWindow(win.Ui_MainWindow):
 				self.progressBar.setVisible(True)
 				self.progressBar.setRange(0,0)
 				self.myLongTask.start()
+				self.pushButton_6.clicked.connect(self.cancelar)
+				self.pushButton_6.setText(QApplication.translate("MainWindow",language[58], None, QApplication.UnicodeUTF8))
 		except:
 			QMessageBox.about(self.form1, "OnlyOne", win._fromUtf8(language[57]))
 
 	def onFinished(self):
 		self.progressBar.setRange(0,1)
 		self.progressBar.setValue(1)
+		self.pushButton_6.clicked.connect(self.onStart)
+		self.pushButton_6.setText(QApplication.translate("MainWindow", language[12], None, QApplication.UnicodeUTF8))
 		
 		rootNode   = Node(["","","",""],1,0)
 		color=0
@@ -170,27 +203,19 @@ class cMainWindow(win.Ui_MainWindow):
 		
 		self.model = StbTreeView(rootNode,self.centralwidget)
 		self.treeView.show()
-		self.treeView.header().hide() 
 		self.treeView.setModel(self.model)
-		
+		self.treeView.setAlternatingRowColors(True)
 		self.treeView.setColumnWidth(0,363)
 		self.treeView.setColumnWidth(1,90)
 		self.treeView.setColumnWidth(2,101)
-		self.treeView.setColumnWidth(3,90)
+		self.treeView.setColumnWidth(3,120)
 		self.treeView.hideColumn(4)
-
-		#self.treeView.resizeColumnToContents(0)		
-
-		
-		self.treeView.setAlternatingRowColors(True)
-
 
 		self.label_8.setText(win._fromUtf8(str(function.CantidadGrupos_Archivos()[0])))
 		self.label_9.setText(win._fromUtf8(str(function.CantidadGrupos_Archivos()[1])))
 		self.data()
 		function.reiniciarFiltros()
 		
-		self.pushButton_6.setEnabled(True)
 		self.pushButton_10.setEnabled(True)
 		self.pushButton_11.setEnabled(True)
 		self.pushButton_12.setEnabled(True)
@@ -199,9 +224,6 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_15.setEnabled(True)
 		self.pushButton_16.setEnabled(True)
 		self.pushButton_17.setEnabled(True)
-		self.pushButton_9.setEnabled(True)
-		self.pushButton_8.setEnabled(True)
-		self.pushButton_18.setEnabled(True)
 		
 		self.doubleSpinBox_2.setValue(0.0)
 		self.doubleSpinBox.setValue(0.0)
@@ -576,10 +598,10 @@ class cMainWindow(win.Ui_MainWindow):
 	def oModif(self):
 		function.OrganizarFecha(self.porFecha)
 		if (self.porFecha=="mayor"):
-			self.pushButton_18.setIcon(self.icon141)
+			self.model.icon144=self.icon141
 			self.porFecha="menor"
 		else:
-			self.pushButton_18.setIcon(self.icon14)
+			self.model.icon144=self.icon14
 			self.porFecha="mayor"
 		self.model.organizar(function.getRepetidos())
 
@@ -587,10 +609,10 @@ class cMainWindow(win.Ui_MainWindow):
 	def oPeso(self):
 		function.OrganizarPeso(self.porPeso)
 		if (self.porPeso=="mayor"):
-			self.pushButton_9.setIcon(self.icon141)
+			self.model.icon14=self.icon141
 			self.porPeso="menor"
 		else:
-			self.pushButton_9.setIcon(self.icon14)
+			self.model.icon14=self.icon14
 			self.porPeso="mayor"
 		self.model.organizar(function.getRepetidos())
 		
@@ -906,7 +928,14 @@ class StbTreeView(QAbstractItemModel):
 	self.noMarc=[]
 	self.indice=0
 	self.cantGrupos=0
-	
+	self.icon14 = QIcon()
+	self.icon14.addPixmap(QPixmap(win._fromUtf8("img/f6864248.png")), QIcon.Normal, QIcon.Off)
+	self.icon144 = QIcon()
+	self.icon144.addPixmap(QPixmap(win._fromUtf8("img/f6864248.png")), QIcon.Normal, QIcon.Off)
+	self.icon114 = QIcon()
+	self.icon114.addPixmap(QPixmap(win._fromUtf8("img/qwe.png")), QIcon.Normal, QIcon.Off)
+		
+
     def rowCount(self, parent):
         if not parent.isValid():
             parentNode = self._rootNode
@@ -917,6 +946,29 @@ class StbTreeView(QAbstractItemModel):
 
     def columnCount(self, parent):
         return 5
+	
+    def headerData(self, section, orientation, role):
+        if role == Qt.DisplayRole:
+	    if section==0:
+		        return "            "+language[34]
+	    elif section==1:
+		    return "   "+language[35]
+	    elif section==2:
+		    return "   "+language[36]
+	    elif section==3:
+		    return "   "+language[37]
+	if role == Qt.DecorationRole:
+		if section==1:
+		    return self.icon14
+		elif section==2:
+		    return self.icon114
+		elif section==3:
+		    return self.icon144
+	if role == Qt.ToolTipRole:
+		if section!=0:
+			return QString(language[38])
+
+		
 	
     def removeRows(self, position, rows, parent=QModelIndex()):
 
@@ -954,11 +1006,19 @@ class StbTreeView(QAbstractItemModel):
 		return node.dos
 
 	    elif index.column() == 2:
-		if node.tres!='(None, None)':
-			tipo=s.split(node.tres,"\'")
-			return tipo[1]
-		else:
-			return "None"
+		if node.tres=='(None, None)':
+			return "None"		
+		partes=s.split(node.tres,"\'")
+		tipo=s.split(partes[1],"/")
+		if tipo[0]=="image" or tipo[0]=="application":
+			tip=s.split(tipo[1],".")
+			return tip[len(tip)-1]
+		if tipo[0]=="audio":
+			return "A/"+tipo[1]
+		if tipo[0]=="video":
+			return "V/"+tipo[1]
+		return partes[1]
+			
 	    
 	    elif index.column() == 3:
 		return node.cuatro
@@ -1004,7 +1064,7 @@ class StbTreeView(QAbstractItemModel):
 
     def flags(self, index):
 	if index.column() == 0:
-		return  Qt.ItemIsUserCheckable | Qt.ItemIsSelectable | Qt.ItemIsEnabled                     
+		return  Qt.ItemIsUserCheckable | Qt.ItemIsSelectable | Qt.ItemIsEnabled                    
 	return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
     def parent(self, index):

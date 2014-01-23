@@ -173,4 +173,7 @@ p57
 sI57
 S'No debe haber tildes en la direcci\xc3\xb3n'
 p58
+sI58
+S'Cancelar'
+p59
 s.
