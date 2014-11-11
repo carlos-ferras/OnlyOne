@@ -1,0 +1,5 @@
+El asistente de OnlyOne esta basado en QtAssistant perteneciente al modulo PyQt
+
+Mediante este asistente usted puede obtener cualquier informacion relacionada
+con OnlyOne, todo el contenido de este se encuentra de una manera accesible
+y representado mediante imagenes.
