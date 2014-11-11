@@ -1220,7 +1220,8 @@ class cMainWindow(win.Ui_MainWindow):
 		self.label_9.setText(str(cant+1))
 		
 	def actPos(self):
-		self.form1.setCursor(QCursor(QPixmap('pixmaps/onlyone/wait.png')))
+		photo='wait_'+self.lang+'.png'
+		self.form1.setCursor(QCursor(QPixmap('pixmaps/onlyone/'+photo)))
 		
 		
 	def actGru(self):
