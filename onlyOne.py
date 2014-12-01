@@ -95,7 +95,7 @@ class makeSearch(QThread):
 							modificado = parser.parse(time.ctime(meta.st_mtime))	
 							tipo=str(metaData.extencion(filepath))
 							try:
-								if(filename[len(filename)-1]=="~") or (filename.split('.')[-1]=="pyc") or (filename.split('.')[-1]=="pure") or (filename.split('.')[-1]=="swp") or (filename.split('.')[-1]=="lo") or (filename.split('.')[-1]=="o") or (filename.split('.')[-1]=="tmp") or (filename.split('.')[-1]=="v") or (str(filename.split('.')[-1]).lower()=="bak") or (str(filename).lower()=="thumbs.db") or (filename.split('.')[-1]=="log") or (filename.split('.')[-1]=="diz") or (filename.split('.')[-1]=="ion"):
+								if(filename[len(filename)-1]=="~") or (filename[len(filename)-1]==".~") or (filename.split('.')[-1]=="pyc") or (filename.split('.')[-1]=="pure") or (filename.split('.')[-1]=="swp") or (filename.split('.')[-1]=="lo") or (filename.split('.')[-1]=="o") or (filename.split('.')[-1]=="tmp") or (filename.split('.')[-1]=="v") or (str(filename.split('.')[-1]).lower()=="bak") or (str(filename).lower()=="thumbs.db") or (filename.split('.')[-1]=="log") or (filename.split('.')[-1]=="diz") or (filename.split('.')[-1]=="ion"):
 									self.archivosAbiertos.append([filepath,modificado,filesize,tipo])
 									self.total_temp.emit()
 									continue
@@ -165,8 +165,8 @@ class makeSearch(QThread):
 						duplicates[filehash].append(filepath)
 				fils=[ duplicate for duplicate in  duplicates.values() if len(duplicate)>1]
 				if len(fils)>0:
-					group= fils[0]
-					self.repetidos.append(group)
+					for group in fils:
+						self.repetidos.append(group)
 			
 			#hora de Fin
 			self.horaFin=datetime.datetime.fromtimestamp(time.time())
@@ -255,7 +255,8 @@ class cMainWindow(win.Ui_MainWindow):
 		self.form1.closeEvent=self.onCloseEvent		
 		self.pushButton_6.clicked.connect(self.scanner)
 		self.pushButton_666.clicked.connect(self.cancelar)
-		
+		self.pushButton_77.clicked.connect(self.cancelar)		
+		self.pushButton_76.clicked.connect(self.scanner)
 		self.pushButton_7.clicked.connect(self.adicionarTiposArchivo)
 		
 		self.pushButton_0.clicked.connect(self.twitter)
@@ -284,12 +285,8 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_66.setEnabled(False)
 		self.pushButton_13.clicked.connect(self.searsh_options)
 		self.pushButton_13.setEnabled(False)
-		
-		#FALTAN FUNCIONES
-		#menos el mas nuevo
 		self.pushButton_74.clicked.connect(self.MarcarTodosMenosMasNuevo)
 		self.pushButton_74.setEnabled(False)
-		#menos el mas viejo
 		self.pushButton_75.clicked.connect(self.MarcarTodosMenosMasViejo)
 		self.pushButton_75.setEnabled(False)
 		
@@ -313,7 +310,7 @@ class cMainWindow(win.Ui_MainWindow):
 		self.pushButton_kurlrequester_2.clicked.connect(self.addExcluir)
 		self.kurlrequester_2.customContextMenuRequested.connect(self.popup)
 		self.treeView.customContextMenuRequested.connect(self.rigth_popup)
-		self.treeView.pressed.connect(self.marcarDesmarcar)
+		self.treeView.clicked.connect(self.marcarDesmarcar)
 		self.listWidget_09.customContextMenuRequested.connect(self.panel_popup)
 		self.pushButton_099.clicked.connect(self.BorrarEnPanel)
 		self.pushButton_09999.clicked.connect(self.BorrarEnPanel)
@@ -552,7 +549,7 @@ class cMainWindow(win.Ui_MainWindow):
 		menu.addAction(action)
 		action = menu.exec_(QCursor.pos())
 	
-	
+	#****************************************************************************************************************
 	def rigth_popup(self,pos):
 		menu = QMenu()
 		if len(self.treeView.selectedIndexes())>0:
@@ -1191,7 +1188,12 @@ class cMainWindow(win.Ui_MainWindow):
 				self.search.rev_sig.connect(self.actPos)				
 				self.search.start()
 				self.pushButton_666.setVisible(True)		
-				self.pushButton_6.setVisible(False)				
+				self.pushButton_6.setVisible(False)
+				self.pushButton_77.setEnabled(True)		
+				self.pushButton_76.setEnabled(False)
+				
+			else:
+				QMessageBox.about(self.form1, "OnlyOne", win._fromUtf8(QApplication.translate("MainWindow", 'Debe definir al menos un directorio de búsqueda')))
 				
 		except:
 			self.form1.setCursor(Qt.ArrowCursor)
@@ -1220,6 +1222,8 @@ class cMainWindow(win.Ui_MainWindow):
 		self.label_9.setText(str(cant+1))
 		
 	def actPos(self):
+		self.pushButton_77.setEnabled(False)
+		self.pushButton_666.setEnabled(False)
 		photo='wait_'+self.lang+'.png'
 		self.form1.setCursor(QCursor(QPixmap('pixmaps/onlyone/'+photo)))
 		
@@ -1250,7 +1254,10 @@ class cMainWindow(win.Ui_MainWindow):
 		self.progressBar.setRange(0,1)
 		self.progressBar.setValue(1)
 		self.pushButton_666.setVisible(False)
+		self.pushButton_666.setEnabled(True)
 		self.pushButton_6.setVisible(True)
+		self.pushButton_77.setEnabled(False)		
+		self.pushButton_76.setEnabled(True)
 		
 		self.itemList=[]
 		g=0
@@ -1305,14 +1312,11 @@ class cMainWindow(win.Ui_MainWindow):
 			item.checked=False
 		else:
 			item.checked=True	
+			
 	
-	
-	def marcarDesmarcar(self,asd):
+	def marcarDesmarcar(self,qModelIndex):
 		self.model.emit(SIGNAL("layoutAboutToBeChanged()"))
-		if len(self.treeView.selectedIndexes())==1:
-			self.marcarDesmarcarItem(self.model.arraydata[self.treeView.selectedIndexes()[0].row()])
-			self.ultimo=self.model.arraydata[self.treeView.selectedIndexes()[0].row()]
-		else:
+		if len(self.treeView.selectedIndexes())>1:
 			miLista=self.treeView.selectedIndexes()
 			for index in miLista:
 				self.marcarDesmarcarItem(self.model.arraydata[index.row()])
@@ -1321,6 +1325,9 @@ class cMainWindow(win.Ui_MainWindow):
 			elif self.ultimo!=None:
 				self.marcarDesmarcarItem(self.model.arraydata[self.treeView.selectedIndexes()[-1].row()])
 			self.ultimo=None
+		else:
+			self.marcarDesmarcarItem(self.model.arraydata[qModelIndex.row()])
+			self.ultimo=self.model.arraydata[qModelIndex.row()]
 		self.data()
 		self.model.emit(SIGNAL("layoutChanged()"))
 		
