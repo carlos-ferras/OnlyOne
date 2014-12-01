@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QHelpCollectionProject version="1.0">
+    <assistant>
+        <title>Ayuda</title>
+        <applicationIcon>onlyone.png</applicationIcon>
+        <cacheDirectory>asistente</cacheDirectory>
+	<homePage>qthelp:///html/0.html</homePage>
+        <startPage>qthelp:///html/0.html</startPage>
+        <aboutMenuText>
+            <text>Acerca de Ayuda</text>
+        </aboutMenuText>
+        <aboutDialog>
+            <file>about.txt</file>
+            <icon>onlyone.png</icon>
+        </aboutDialog>
+        <enableDocumentationManager>false</enableDocumentationManager>
+        <enableAddressBar>false</enableAddressBar>
+        <enableFilterFunctionality>false</enableFilterFunctionality>
+    </assistant>
+    <docFiles>
+        <generate>
+            <file>
+                <input>onlyone.qhp</input>
+                <output>onlyone.qch</output>
+	    </file>
+	</generate>
+        <register>
+            <file>onlyone.qch</file>
+            </register>
+    </docFiles>
+</QHelpCollectionProject>

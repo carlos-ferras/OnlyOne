@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QtHelpProject version="1.0">
+    <namespace>com.trolltech.examples.simpletextviewer</namespace>
+    <virtualFolder>doc</virtualFolder>
+    <filterSection>
+        <toc>
+            <section title="OnlyOne" ref="./html/0.html">	    
+		    <section title="Realizar búsqueda" ref="./html/1.html">
+		    </section>
+		    <section title="Adicionar tipos de archivo" ref="./html/2.html">
+		    </section>
+		    <section title="Configuraciones" >
+			    <section title="Cambiar idioma" ref="./html/3.html">
+			    </section>
+			    <section title="Cambiar Directorio por defecto" ref="./html/3_1.html">
+			    </section>
+			    <section title="Cambiar Opacidad de la Ventana" ref="./html/3_2.html">
+			    </section>
+			    <section title="Cambiar fuente" ref="./html/4.html">
+			    </section>
+		    </section>
+		    <section title="Ajustar filtros ">
+			    <section title="Filtrar por carpetas" ref="./html/5.html">
+			    </section>
+			    <section title="Filtrar por tipos" ref="./html/6.html">
+			    </section>
+			    <section title="Filtrar por tamaño" ref="./html/7.html">
+			    </section>
+		    </section>		    
+		    <section title="Usar Herramientas ">
+			    <section title="Borrar archivos Marcados" ref="./html/8.html">
+			    </section>
+			    <section title="Borrar archivos no marcados" ref="./html/9.html">
+			    </section>
+			    <section title="Borrar archivos temporales" ref="./html/10.html">
+			    </section>
+			    <section title="Borrar directorios vacios" ref="./html/11.html">
+			    </section>
+		    </section>
+		    <section title="Información disponible ">
+		            <section title="Cantidad de grupos" ref="./html/12.html">
+			    </section>
+			    <section title="Cantidad total" ref="./html/13.html">
+			    </section>
+			    <section title="Cantidad de marcados" ref="./html/14.html">
+			    </section>
+			    <section title="Tamaño de los no marcados" ref="./html/15.html">
+			    </section>
+			    <section title="Tamaño de marcados" ref="./html/16.html">
+			    </section>
+			    <section title="Tamaño total" ref="./html/17.html">
+			    </section>
+			    <section title="Tiempo de busqueda" ref="./html/18.html">
+			    </section>
+			    <section title="Archivos revisados" ref="./html/19.html">
+			    </section>
+			    <section title="Directorios vacios" ref="./html/20.html">
+			    </section>
+			    <section title="Temporales" ref="./html/21.html">
+			    </section>
+		    </section>
+		    <section title="Opciones">
+			    <section title="Marcar todos" ref="./html/22.html">
+			    </section>
+			    <section title="Marcar todos menos uno" ref="./html/23.html">
+			    </section>			    
+			    <section title="Marcar todos menos el mas nuevo" ref="./html/24.1.html">
+			    </section>
+			    <section title="Marcar todos menos el mas viejo" ref="./html/24.2.html">
+			    </section>			    
+			    <section title="Desmarcar todos" ref="./html/24.html">
+			    </section>
+			    <section title="Encontrar" ref="./html/25.html">
+			    </section>
+			    <section title="Opciones de marcado para encontrados" ref="./html/26.html">
+			    </section>
+		    </section>
+		    <section title="Errores" ref="./html/27.html">
+		    </section>
+		</section>
+	</toc>
+        <keywords>
+            <keyword name="onlyone" ref="./0.html"/>
+            <keyword name="para que" ref="./html/0.html"/>
+	    <keyword name="facebook" ref="./html/0.html"/>
+	    <keyword name="twitter" ref="./html/0.html"/>
+	    <keyword name="licencia" ref="./html/0.html"/>
+	    <keyword name="correo" ref="./html/0.html"/>
+	    <keyword name="contacto con los desarrolladores" ref="./html/0.html"/>
+	    <keyword name="creditos" ref="./html/0.html"/>	    
+	    <keyword name="organizar por fecha de modificado" ref="./html/0.html"/>	    
+	    <keyword name="organizar por tipo" ref="./html/0.html"/>
+	    <keyword name="organizar por amaño" ref="./html/0.html"/>
+	    <keyword name="realizar busqueda" ref="./html/1.html"/>
+	    <keyword name="adicionar tipos de archivo" ref="./html/2.html"/>
+	    <keyword name="cambiar idioma / lenguage" ref="./html/3.html"/>
+	    <keyword name="cambiar directorio por defecto" ref="./html/3_1.html"/>
+	    <keyword name="cambiar opacidad de la ventana" ref="./html/3_2.html"/>
+	    <keyword name="cambiarr fuente / tipografia" ref="./html/4.html"/>
+	    <keyword name="filtrar por carpetas" ref="./html/5.html"/>
+	     <keyword name="filtrar por tipos" ref="./html/6.html"/>
+	    <keyword name="filtrar por tamaño" ref="./html/7.html"/>
+	    <keyword name="borrar / eliminar archivos marcados" ref="./html/8.html"/>
+	    <keyword name="borrar / eliminar archivos no marcados" ref="./html/9.html"/>
+	    <keyword name="borrar / eliminar archivos temporales" ref="./html/10.html"/>
+	    <keyword name="borrar / eliminar directorios vacios" ref="./html/11.html"/>
+	    <keyword name="conocer cantidad de grupos" ref="./html/12.html"/>
+	    <keyword name="conocer cantidad total de archivos" ref="./html/13.html"/>
+	    <keyword name="conocer cantidad de archivos marcados" ref="./html/14.html"/>
+	    <keyword name="conocer tamaño de archivos no marcados" ref="./html/15.html"/>
+	    <keyword name="conocer tamaño de archivos marcados" ref="./html/16.html"/>
+	     <keyword name="conocer tamaño total de archivos" ref="./html/17.html"/>
+	     <keyword name="tiempo / demora de busqueda" ref="./html/18.html"/>
+	    <keyword name="cantidad de archivos revisados / escaneados" ref="./html/19.html"/>
+	    <keyword name="cantidad de directorios vacios" ref="./html/20.html"/>
+	    <keyword name="cantidad de archivos temporales" ref="./html/21.html"/>
+	    <keyword name="marcar todos los archivos" ref="./html/22.html"/>
+	    <keyword name="marcar todos los archivos menos uno por grupo" ref="./html/23.html"/>	    
+	    <keyword name="marcar todos menos el más nuevo de cada grupo" ref="./html/24.1.html"/>
+	    <keyword name="marcar todos menos uno" ref="./html/24.1.html"/>
+	    <keyword name="nuevo " ref="./html/24.1.html"/>
+	    <keyword name="arcar todos menos el más viejo de cada grupo" ref="./html/24.2.html"/>	  
+	    <keyword name="marcar todos menos uno" ref="./html/24.2.html"/>
+	    <keyword name="viejo " ref="./html/24.2.html"/>
+	    <keyword name="desmarcar todos los archivos" ref="./html/24.html"/>
+	    <keyword name="encontrar cadena / subcadena en la busqueda" ref="./html/25.html"/>
+	    <keyword name="marcar todos los archivos encontrados" ref="./html/26.html"/>
+	    <keyword name="error" ref="./html/27.html"/>	    
+	    <keyword name="ErrorArchivosNoBorrados" ref="./html/27.html"/>
+	    <keyword name="ErrorDirectoriosNoBorrados" ref="./html/27.html"/>
+            </keywords>
+        <files>
+            <file>html/0.html</file>
+            <file>html/1.html</file>
+	    <file>html/2.html</file>
+	    <file>html/3.html</file>
+	    <file>html/3_1.html</file>
+	    <file>html/3_2.html</file>
+	    <file>html/4.html</file>
+	    <file>html/5.html</file>
+	    <file>html/6.html</file>
+	    <file>html/7.html</file>
+	    <file>html/8.html</file>
+	    <file>html/9.html</file>
+	    <file>html/10.html</file>
+	    <file>html/11.html</file>
+	    <file>html/12.html</file>
+	    <file>html/13.html</file>
+	    <file>html/14.html</file>
+	    <file>html/15.html</file>
+	    <file>html/16.html</file>
+	    <file>html/17.html</file>
+	    <file>html/18.html</file>
+	    <file>html/19.html</file>
+	    <file>html/20.html</file>
+	    <file>html/21.html</file>
+	    <file>html/22.html</file>
+	    <file>html/23.html</file>
+	    <file>html/24.html</file>
+	    <file>html/24.1.html</file>
+	    <file>html/24.2.html</file>
+	    <file>html/25.html</file>
+	    <file>html/26.html</file>
+	    <file>html/27.html</file>
+	    <file>html/informacion.css</file>
+	    
+	    <file>html/img/0.png</file>
+	    <file>html/img/1.png</file>
+	    <file>html/img/2.png</file>
+	    <file>html/img/12.png</file>
+	    <file>html/img/13.png</file>
+	    <file>html/img/14.png</file>
+	    <file>html/img/15.png</file>
+	    <file>html/img/16.png</file>
+	    <file>html/img/17.png</file>
+	    <file>html/img/18.png</file>
+	    <file>html/img/19.png</file>
+	    <file>html/img/22.png</file>
+	    <file>html/img/23.png</file>
+	    <file>html/img/24.png</file>
+	    <file>html/img/24.1.png</file>
+	    <file>html/img/25.png</file>
+	    <file>html/img/26.png</file>
+	    <file>html/img/27.png</file>
+	    <file>html/img/28.png</file>
+	    <file>html/img/29.png</file>
+	    <file>html/img/30.png</file>
+	    <file>html/img/31.png</file>
+	    <file>html/img/32.png</file>
+	    <file>html/img/33.png</file>
+	    <file>html/img/34.png</file>
+	    <file>html/img/35.png</file>
+	    <file>html/img/36.png</file>
+	    <file>html/img/37.png</file>
+	    <file>html/img/38.png</file>
+	    <file>html/img/39.png</file>
+	    <file>html/img/40.png</file>
+	    <file>html/img/41.png</file>
+	    <file>html/img/42.png</file>
+	    <file>html/img/43.png</file>
+	    <file>html/img/44.png</file>
+	    <file>html/img/44.1.png</file>
+	    <file>html/img/44.2.png</file>
+	    <file>html/img/45.png</file>
+	    <file>html/img/46.png</file>
+	    <file>html/img/47.png</file>
+	    <file>html/img/48.png</file>
+	    <file>html/img/49.png</file>
+	    <file>html/img/49.1.png</file>
+	    <file>html/img/49.2.png</file>
+	    <file>html/img/49.3.png</file>
+	    <file>html/img/50.png</file>
+	    <file>html/img/50.1.png</file>
+	    <file>html/img/50.2.png</file>
+	    <file>html/img/50.3.png</file>
+	    <file>html/img/50.4.png</file>
+	    <file>html/img/51.png</file>
+	    <file>html/img/52.png</file>
+	    <file>html/img/53.png</file>
+	    <file>html/img/54.png</file>
+	    <file>html/img/55.png</file>
+	    <file>html/img/56.png</file>
+	    <file>html/img/57.png</file>
+	    <file>html/img/58.png</file>
+	    <file>html/img/59.png</file>
+	    <file>html/img/60.png</file>
+	    <file>html/img/61.png</file>
+	    <file>html/img/62.png</file>
+	    <file>html/img/63.png</file>
+	    <file>html/img/64.png</file>
+	    <file>html/img/65.png</file>
+	    <file>html/img/66.png</file>
+	    <file>html/img/67.png</file>
+	    <file>html/img/68.png</file>
+	    <file>html/img/69.png</file>
+	    <file>onlyone.png</file>
+           </files>
+        </filterSection>
+    </QtHelpProject>
